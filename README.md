@@ -6,6 +6,11 @@ following the book [Writing a Simple Operating System —from Scratch](https://w
 # build docker image for development environment
 docker build --build-arg UID=`id -u` --build-arg GID=`id -g` -t os-env .
 
+# Or build on top of the base image, which is built on master automatically,
+# from docker hub. In this way, the build can be speeded up due to caching.
+docker pull ghlghhh/os-env:base
+docker build --cache-from=ghlghhh/os-env:base --build-arg UID=`id -u` --build-arg GID=`id -g` -t os-env .
+
 # run docker image interactively with video display connected
 docker run -it --rm -e DISPLAY -v $HOME/.Xauthority:/home/dev/.Xauthority --net=host os-env
 
