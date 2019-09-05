@@ -9,13 +9,15 @@
 ;
 ; The following is the assembly of a boot sector that performs an infinite loop.
 ; It needs to be compiled into binary format (see REAME.md), which will be:
-;     e9 fd ff 00 00 00 00 00 00 00 00 00 00 00 00 00
+;     eb fe 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 ;     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-;     ...
+;     *
 ;     00 00 00 00 00 00 00 00 00 00 00 00 00 00 55 aa
-; Notice that the last two bytes are in "little-endian" for x86 architecture
-; [TODO] take a closer look on endianness (i.e. it is in the scope of a number,
-;     then what defines the size of the number?)
+; Notice that the last two bytes are in "little-endian" for x86 architecture,
+; endianness determine how bytes are ordered within a "word", size of the
+; maximum processing unit of the current mode of the CPU. In the case of boot
+; sector, a word is 16 bits for backward compatibility, thus you see "55 aa" for
+; the magic number.
 
 ; Infinite loop that does nothing, which actually prevents the CPU to execute
 ; "next instruction" (a.k.a random bytes) and enter undefined state.
